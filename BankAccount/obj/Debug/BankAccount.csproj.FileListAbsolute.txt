@@ -1,0 +1,7 @@
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\bin\Debug\BankAccount.exe.config
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\bin\Debug\BankAccount.exe
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\bin\Debug\BankAccount.pdb
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\obj\Debug\BankAccount.csproj.AssemblyReference.cache
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\obj\Debug\BankAccount.csproj.CoreCompileInputs.cache
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\obj\Debug\BankAccount.exe
+C:\Users\jeanl\NET\OOP\BankAccount\BankAccount\obj\Debug\BankAccount.pdb
