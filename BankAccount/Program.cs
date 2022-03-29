@@ -22,23 +22,10 @@ namespace BankAccount
             List<Account> listaccounts = new List<Account>();
             List<AccountTransit> listTransits = new List<AccountTransit>();
 
-
+            //Client 1
             client.CreateClient(client);
             client.DisplayClient(client);
             account.CreateAccount(client);
-            ReadLine();
-
-            client.CreateClient(client);
-            client.DisplayClient(client);
-            account.CreateAccount(client);
-            ReadLine();
-
-            client.CreateClient(client);
-            client.DisplayClient(client);
-            account.CreateAccount(client);
-            ReadLine();
-
-            client.deleteClient(client);
             ReadLine();
 
             transit.depositMoney(account, transit);
@@ -55,18 +42,83 @@ namespace BankAccount
             transit.withdrawlMoney(account, transit);
             ReadLine();
 
+            //Client 2
 
+            client.CreateClient(client);
+            client.DisplayClient(client);
+            account.CreateAccount(client);
+            ReadLine();
+
+            transit.depositMoney(account, transit);
+            ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
+
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+
+            //Client 3
+
+            client.CreateClient(client);
+            client.DisplayClient(client);
+            account.CreateAccount(client);
+            ReadLine();
+
+            transit.depositMoney(account, transit);
+            ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
+
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+
+            //History and statements
             transit.accountStatements(account, transit);
             ReadLine();
-
             transit.accountHistory(account, transit);
             ReadLine();
 
+            transit.accountStatements(account, transit);
+            ReadLine();
+            transit.accountHistory(account, transit);
+            ReadLine();
 
+            //Delete account
+            client.deleteClient(client);
+            ReadLine();
             account.deleteAccountList(account);
             ReadLine();
             transit.deleteRecords(account, transit);
             ReadLine();
+
+            //Test results after delete
+            for (int i = 0; i < listClients.Count; i++)
+            {
+                WriteLine($"first name: {listClients[i].GetFirstName()}");
+            }
+
+            for (int j = 0; j < listaccounts.Count; j++)
+            {
+                WriteLine($"first name: {listaccounts[j].GetAccountNumber()}");
+            }
+
+
+            for (int k = 0; k < listTransits.Count; k++)
+            {
+                WriteLine($"first name: {listTransits[k].GetBalance()}");
+            }
 
 
             // CreateClient(client);

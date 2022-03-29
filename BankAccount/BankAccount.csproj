@@ -46,7 +46,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="AccountTransit.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="ClientsDB.cs" />
+    <Compile Include="MethodLab.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

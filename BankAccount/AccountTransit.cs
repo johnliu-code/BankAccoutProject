@@ -21,6 +21,7 @@ namespace BankAccount
         private DateTime transDate;
 
         private bool transStatusActived = false;
+        MethodLab myMethod = new MethodLab();
 
         List<AccountTransit> listTransits = new List<AccountTransit>();
 
@@ -52,9 +53,9 @@ namespace BankAccount
         {
             accountId = account.GetAccountNumber();
 
-            WriteLine($"Insert or input amount of money you want deposit to this Account Number: {account.GetAccountNumber()}");
-            string inputValue = ReadLine();
-            deposit = ToDouble(inputValue);
+            string message = $"Insert or input amount of money you want deposit to this Account Number: {account.GetAccountNumber()}";
+            double inputValue = 0;
+            deposit = myMethod.validDouble(inputValue, message);
             withdrawl = 0;
             transDate = DateTime.Now;
             balance = balance + deposit - withdrawl;
@@ -79,12 +80,15 @@ namespace BankAccount
         {
             accountId = account.GetAccountNumber();
 
-            WriteLine($"Please entre amount of money you want withdrawl from this Account Number: {account.GetAccountNumber()}");
-            string inputValue = ReadLine();
-            withdrawl = ToDouble(inputValue);
+            string message = $"Please entre amount of money you want withdrawl from this Account Number: {account.GetAccountNumber()}";
+            double inputValue = 0;
+            withdrawl = myMethod.validDouble(inputValue, message);
             deposit = 0;
             transDate = DateTime.Now;
-            balance = balance + deposit - withdrawl;
+            if (withdrawl <= balance)
+                balance = balance + deposit - withdrawl;
+            else
+                WriteLine($"Your withdrawl value is over the Balance: {balance}! please try again!!");
 
             transit = new AccountTransit();
             transit.setAccountId(accountId);
@@ -111,20 +115,24 @@ namespace BankAccount
         //Method to print Acccount history
         public void accountHistory (Account account, AccountTransit transit)
         {
-            WriteLine("Please entre history start date yyyy-mm-dd: ");
-            var cultureInfo = new CultureInfo("es-ES");
-            string inputDate = ReadLine();
-            string formatDate = "yyyy-mm-dd";
-            DateTime startDate = DateTime.ParseExact(inputDate, formatDate, cultureInfo);
+            DateTime inputDateTime = DateTime.Today;
+            string formatDateTime = "yyyy-MM-dd";
+
+            string message = "Please entre history start date yyyy-mm-dd: ";
+            DateTime startDate = myMethod.validDateTimeInput(inputDateTime, message, formatDateTime);
    
-            WriteLine("Please entre history end date yyyy-mm-dd: ");
-            string inputDate2 = ReadLine();
-            DateTime endDate = DateTime.ParseExact(inputDate2, formatDate, cultureInfo);
+            string message2 = "Please entre history end date yyyy-mm-dd: ";
+            DateTime endDate = myMethod.validDateTimeInput(inputDateTime, message2, formatDateTime);
 
             for (int i = 0; i < listTransits.Count; i++)
             {
-                if (listTransits[i].GetTransitDate() >= startDate)
-                WriteLine($"Transit time: {listTransits[i].GetTransitDate()};    Deposit: {listTransits[i].GetDeposit()};   Withdrawl: {listTransits[i].GetWithdrawl()};   Balance: {listTransits[i].GetBalance()}");
+                if (listTransits[i].GetTransitDate() >= startDate && listTransits[i].GetTransitDate() <= endDate)
+                {
+                    WriteLine($"Transit time: {listTransits[i].GetTransitDate()};    Deposit: {listTransits[i].GetDeposit()};   Withdrawl: {listTransits[i].GetWithdrawl()};   Balance: {listTransits[i].GetBalance()}");
+                } else
+                {
+                    WriteLine($"Did not find results in this time priod: {startDate} to {endDate}");
+                }              
             }
         }
 
