@@ -25,10 +25,21 @@ namespace BankAccount
 
             transit.depositMoney(account, transit);
             ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
+            transit.depositMoney(account, transit);
+            ReadLine();
 
             transit.withdrawlMoney(account, transit);
             ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
+            transit.withdrawlMoney(account, transit);
+            ReadLine();
 
+
+            transit.accountStatements(account, transit);
+            ReadLine();
 
 
             // CreateClient(client);

@@ -91,19 +91,19 @@ namespace BankAccount
             transit.setTransitionDate(transDate);
 
             dispalyTransit(transit);
-            WriteLine("Confirm to submit this deposit? Y/N");
-              string ans = ReadLine().ToUpper();
-              if (ans == "Y")
-            {
-                listTransits.Add(transit);
-            }
-            for (int i = 0; i < listTransits.Count; i++)
-            {
-                WriteLine(listTransits[i].GetBalance());
-            }
+
+            listTransits.Add(transit);
+            WriteLine(listTransits.Count);
         }
 
         //Method to check Acccount status 
+        public void accountStatements (Account account, AccountTransit transit)
+        {
+            for (int i = 0; i < listTransits.Count; i++)
+            {
+                WriteLine($"Transit time: {listTransits[i].GetTransitDate()};    Deposit: {listTransits[i].GetDeposit()};   Withdrawl: {listTransits[i].GetWithdrawl()};   Balance: {listTransits[i].GetBalance()}");
+            }
+        }
 
         //Method to print Acccount history
 
