@@ -17,10 +17,28 @@ namespace BankAccount
             Client client = new Client();
             Account account = new Account();
             AccountTransit transit = new AccountTransit();
+
+            List<Client> listClients = new List<Client>();
             List<Account> listaccounts = new List<Account>();
             List<AccountTransit> listTransits = new List<AccountTransit>();
 
+
+            client.CreateClient(client);
+            client.DisplayClient(client);
             account.CreateAccount(client);
+            ReadLine();
+
+            client.CreateClient(client);
+            client.DisplayClient(client);
+            account.CreateAccount(client);
+            ReadLine();
+
+            client.CreateClient(client);
+            client.DisplayClient(client);
+            account.CreateAccount(client);
+            ReadLine();
+
+            client.deleteClient(client);
             ReadLine();
 
             transit.depositMoney(account, transit);
@@ -39,6 +57,15 @@ namespace BankAccount
 
 
             transit.accountStatements(account, transit);
+            ReadLine();
+
+            transit.accountHistory(account, transit);
+            ReadLine();
+
+
+            account.deleteAccountList(account);
+            ReadLine();
+            transit.deleteRecords(account, transit);
             ReadLine();
 
 

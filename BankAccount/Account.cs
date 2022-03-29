@@ -16,28 +16,24 @@ namespace BankAccount
         private string password;
 
         private DateTime openDate;
-        private DateTime closeDate;
-        private bool accountActived = false;
         private bool userLogined = false;
 
         List<Account> listAccounts = new List<Account>();
 
         //Constructor
-        public Account(Client _client, double _accountNumber, string _password,  DateTime _openDate, bool _accountActived)
+        public Account(Client _client, double _accountNumber, string _password,  DateTime _openDate)
         {
             client = _client;
             accountNumber = _accountNumber;
             password = _password;
             openDate = _openDate;
-            accountActived = _accountActived;
         }
 
-        public Account(Client _client, double _accountNumber, string _password, bool _accountActived)
+        public Account(Client _client, double _accountNumber, string _password)
         {
             client = _client;
             accountNumber = _accountNumber;
             password = _password;
-            accountActived = _accountActived;
         }
 
         public Account(double _accountNumber, string _password)
@@ -54,105 +50,66 @@ namespace BankAccount
         public double GetAccountNumber() { return accountNumber; }
         public string GetPassWord() { return password; }     
         public DateTime GetOpenDate() { return openDate; }
-        public DateTime GetCloseDate() { return closeDate; }
-        public bool GetActivedStatus() { return accountActived; }
         public bool GetUserLogined() { return userLogined; }
 
         public void setClient (Client _client) { client = _client; }
         public void setAccountNumber(double _accountNumber) { accountNumber = _accountNumber; }
         public void setPassWord(string _password) { password = _password; }
         public void setOpenDate(DateTime _openDate) { openDate = _openDate; }
-        public void setCloseDate(DateTime _closeDate) { closeDate = _closeDate; }
-        public void setActived(bool _accountActived) { accountActived = _accountActived; }
         public void setUserLogined(bool _userLogined) { userLogined = _userLogined; }
 
 
         //Method create Acccount (Set Client Acoount number and password)
         public void CreateAccount (Client client)
         {
-            client.CreateClient(client);
-            client.DisplayClient(client);
-
             var randomNumber = new Random();
             accountNumber = randomNumber.Next(10000000, 99999999);          //Generate radom Bank Account Number
+            client.SetClientId(accountNumber);
 
             WriteLine($"Your Bank Account Number is : {accountNumber}; \nPlease take a note to keep your Bank Account Number safelly, and entre your PassWord:");
             password = ReadLine();
-            accountActived = true;
             openDate = DateTime.Now;
 
             Account account = new Account();                                //Create Account and set initial values
             account.setAccountNumber(accountNumber);
             account.setPassWord(password);
             account.setOpenDate(openDate);
-            account.setActived(accountActived);
 
             WriteLine($"Client Name: {client.GetFirstName()}, {client.GetLastName()}; Account Number: {account.GetAccountNumber()}; Open Date: {account.GetOpenDate().ToString()}");
-
-            if (accountActived)
-            {
-                WriteLine("Your Banck Account successfully created! Enjoy our Bank Services!!!");
-            } else
-            {
-                WriteLine("Your Bank Account Faild to create! Please check the request information and try it again!");
-            }
-
-        }
-
-        //Method to create a list for all of accouts of users
-        public void addAccounts(Account account)
-        {
             listAccounts.Add(account);
             WriteLine(listAccounts.Count);
+
+            WriteLine("Your Banck Account successfully created! Enjoy our Bank Services!!!");
         }
 
         //Find account with user info
-        public Account findAccount(Account account, List<Account> listaccounts)
+        public void dispalyAccountInfo(Account account)
         {
-            for (int i = 0; i <= listaccounts.Count; i++)
+            for (int i = 0; i <= listAccounts.Count; i++)
             {
-                if (account.GetAccountNumber() == listaccounts[i].GetAccountNumber())
-                    account = listaccounts[i];
+                if (account.GetAccountNumber() == listAccounts[i].GetAccountNumber())
+                    WriteLine($"Account Number: {listAccounts[i].GetAccountNumber()}");
                 else
                     WriteLine($"Account: {account.GetAccountNumber()} is not exisits!!");
             } 
-            return account;
         }
 
         //Delete account from list
-        public void deleteAccountList (Account account, List<Account> listaccounts)
+        public void deleteAccountList (Account account)
         {
             WriteLine("Please entre Account Number you want to delete:  ");
             double accountnumber = ToDouble(ReadLine());
 
-            for (int i = 0; i <= listaccounts.Count; i++)
+            for (int i = 0; i < listAccounts.Count; i++)
             {
-                if (accountnumber == listaccounts[i].GetAccountNumber())
-
-                    listaccounts.Remove(account);
-                else
-                    WriteLine($"Account: {account.GetAccountNumber()} is not exisits!!");
+                if ( listAccounts[i].GetAccountNumber() == accountnumber)
+                {
+                    account = listAccounts[i];
+                    listAccounts.Remove(account);
+                }
+ 
             }
-        }
-
-        //Method close Acccount
-        public void CloseAccount (Client client, Account account)
-        {
-            //Verify Client and Account Number and Password to make sure it is the right Client and Account
-            if (!userLogined)
-            {
-                account = userLogin(client, account);
-            } else
-            {
-                WriteLine($"Are you sure you want to close this Account? Account Number: {account.GetAccountNumber()}, with Client Name: {client.GetFirstName()} {client.GetFirstName()}. Y/N? ");
-                string answer = ReadLine().ToUpper();
-
-                if (answer == "Y")
-                    account.setActived(false);
-                account.setCloseDate(DateTime.Now);
-            }
-
-            WriteLine($"Your Account {account.GetAccountNumber()} has been Closed at {account.GetCloseDate()}");
+            WriteLine(listAccounts.Count);
         }
 
         //Method update Acccount password

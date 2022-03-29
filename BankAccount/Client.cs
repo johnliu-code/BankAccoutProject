@@ -11,14 +11,19 @@ namespace BankAccount
 {
     class Client
     {
-        public string firstName;
-        public string lastName;
-        public string email;
-        public string phone;
-        public string address;
-        public DateTime birthDate;
+        private string firstName;
+        private string lastName;
+        private string email;
+        private string phone;
+        private string address;
+        private string birthDate;
+        private double clientId;
 
-        public Client(string _firstname, string _lastname, string _email, string _phone, string _address, DateTime _birthdate)
+       // private Account account;
+
+        List<Client> listClients = new List<Client>();
+
+        public Client(string _firstname, string _lastname, string _email, string _phone, string _address, string _birthdate)
         {
             firstName = _firstname;
             lastName = _lastname;
@@ -34,7 +39,7 @@ namespace BankAccount
             lastName = _lastname;
         }
 
-        public Client (string _email, string _phone, string _address, DateTime _birthdate)
+        public Client (string _email, string _phone, string _address, string _birthdate)
         {
             email = _email;
             phone = _phone;
@@ -50,18 +55,22 @@ namespace BankAccount
         public string GetEmail() { return email; }
         public string GetPhone() { return phone; }
         public string GetAddress() { return address; }
-        public DateTime GetBirthDate() { return birthDate; }
+        public string GetBirthDate() { return birthDate; }
+        public double GetClientId() { return clientId; }
 
         public void SetFirstName (string _firstname) { firstName = _firstname; }
         public void SetLastName (string _lastname) { lastName = _lastname; }
         public void SetEmial (string _email) { email = _email; }
         public void SetPhone (string _phone) { phone = _phone; }
         public void SetAddress (string _address) { address = _address; }
-        public void SetBirthDate (DateTime _birthdate) { birthDate = _birthdate; }
+        public void SetBirthDate (string _birthdate) { birthDate = _birthdate; }
+        public void SetClientId(double _clientId) { clientId = _clientId; }
 
         //Method create Client
         public void CreateClient (Client client)
         {
+            client = new Client();
+
             WriteLine("Your First Name? ");
             string firstname = ReadLine();
             client.SetFirstName(firstname);
@@ -83,11 +92,12 @@ namespace BankAccount
             client.SetAddress(address);
 
             WriteLine("Your Date of Birth? yyyy-mm-dd");
-            var cultureInfo = new CultureInfo("en-EN");
-            string inputDate = ReadLine();
-            string formatDate = "yyyy-mm-dd";
-            DateTime birthdate = DateTime.ParseExact(inputDate, formatDate, cultureInfo);
+            string birthdate = ReadLine();
             client.SetBirthDate(birthdate);
+
+            //Add client info to the List
+            listClients.Add(client);
+            WriteLine(listClients.Count);
         }
 
         //Method display Client
@@ -98,7 +108,7 @@ namespace BankAccount
             WriteLine($"Client Email: {client.GetEmail()}");
             WriteLine($"Client Phone Number: {client.GetPhone()}");
             WriteLine($"Client Address: {client.GetAddress()}");
-            WriteLine($"Client Birth Date: {client.GetBirthDate().ToShortDateString()}");
+            WriteLine($"Client Birth Date: {client.GetBirthDate()}");
         }
 
         //Method update Client
@@ -125,11 +135,29 @@ namespace BankAccount
             client.SetAddress(address);
 
             WriteLine($"Please entre New Birth Date: yyyy-mm-dd");
-            var cultureInfo = new CultureInfo("en-EN");
-            string inputDate = ReadLine();
-            string formatDate = "yyyy-mm-dd";
-            DateTime birthdate = DateTime.ParseExact(inputDate, formatDate, cultureInfo);
+            string birthdate = ReadLine();
             client.SetBirthDate(birthdate);
+        }
+
+        //Delete Client
+        public void deleteClient (Client client)
+        {
+
+            WriteLine("Please entre Client Email you want to delete:  ");
+            string emailDel = ReadLine();
+
+            WriteLine(listClients.Count);
+            for (int i = 0; i < listClients.Count; i++)
+            {
+                    WriteLine(emailDel);
+                    WriteLine(listClients[i].GetEmail());
+                if (listClients[i].GetEmail() == emailDel)
+                {
+                    client = listClients[i];
+                    listClients.Remove(client);
+                }
+            }
+            WriteLine(listClients.Count);
         }
     }
 

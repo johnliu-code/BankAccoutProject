@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
 using static System.Convert;
+using System.Globalization;
 
 namespace BankAccount
 {
     class AccountTransit
     {
-        //Oprate accounts data
-        private Client client;
+        //All of account transitions data
         private Account account;
 
         private double accountId;
@@ -22,11 +22,10 @@ namespace BankAccount
 
         private bool transStatusActived = false;
 
-       List<AccountTransit> listTransits = new List<AccountTransit>();
+        List<AccountTransit> listTransits = new List<AccountTransit>();
 
-        public AccountTransit (Account _account, double _accountid, double _balance, double _withdrawl, double _deposit, DateTime _transDate)
+        public AccountTransit (double _accountid, double _balance, double _withdrawl, double _deposit, DateTime _transDate)
         {
-            account = _account;
             accountId = _accountid;
             balance = _balance;
             withdrawl = _withdrawl;
@@ -51,8 +50,9 @@ namespace BankAccount
         //Method deposit money to Acccount
         public void depositMoney(Account account, AccountTransit transit)
         {
-            WriteLine($"Insert or input amount of money you want deposit to this Account Number: {account.GetAccountNumber()}");
+            accountId = account.GetAccountNumber();
 
+            WriteLine($"Insert or input amount of money you want deposit to this Account Number: {account.GetAccountNumber()}");
             string inputValue = ReadLine();
             deposit = ToDouble(inputValue);
             withdrawl = 0;
@@ -60,6 +60,7 @@ namespace BankAccount
             balance = balance + deposit - withdrawl;
 
             transit = new AccountTransit();
+            transit.setAccountId(accountId);
             transit.setDeposit(deposit);
             transit.setBlance(balance);
             transit.setWithdrawl(withdrawl);
@@ -76,8 +77,9 @@ namespace BankAccount
         //Method withdrawl money from Acccount
         public void withdrawlMoney(Account account, AccountTransit transit)
         {
-            WriteLine($"Please entre amount of money you want withdrawl from this Account Number: {account.GetAccountNumber()}");
+            accountId = account.GetAccountNumber();
 
+            WriteLine($"Please entre amount of money you want withdrawl from this Account Number: {account.GetAccountNumber()}");
             string inputValue = ReadLine();
             withdrawl = ToDouble(inputValue);
             deposit = 0;
@@ -85,6 +87,7 @@ namespace BankAccount
             balance = balance + deposit - withdrawl;
 
             transit = new AccountTransit();
+            transit.setAccountId(accountId);
             transit.setDeposit(deposit);
             transit.setBlance(balance);
             transit.setWithdrawl(withdrawl);
@@ -106,12 +109,40 @@ namespace BankAccount
         }
 
         //Method to print Acccount history
+        public void accountHistory (Account account, AccountTransit transit)
+        {
+            WriteLine("Please entre history start date yyyy-mm-dd: ");
+            var cultureInfo = new CultureInfo("es-ES");
+            string inputDate = ReadLine();
+            string formatDate = "yyyy-mm-dd";
+            DateTime startDate = DateTime.ParseExact(inputDate, formatDate, cultureInfo);
+   
+            WriteLine("Please entre history end date yyyy-mm-dd: ");
+            string inputDate2 = ReadLine();
+            DateTime endDate = DateTime.ParseExact(inputDate2, formatDate, cultureInfo);
+
+            for (int i = 0; i < listTransits.Count; i++)
+            {
+                if (listTransits[i].GetTransitDate() >= startDate)
+                WriteLine($"Transit time: {listTransits[i].GetTransitDate()};    Deposit: {listTransits[i].GetDeposit()};   Withdrawl: {listTransits[i].GetWithdrawl()};   Balance: {listTransits[i].GetBalance()}");
+            }
+        }
+
+        //Delete records
+        public void deleteRecords (Account account, AccountTransit transit)
+        {
+            if (account.GetAccountNumber() == transit.GetAccountId())
+            {
+                listTransits.Clear();
+                WriteLine(listTransits.Count);
+            }
+        }
 
         //Display transit record
         public void dispalyTransit (AccountTransit transit)
         {
    
-            WriteLine($"Tranist time: {transit.GetTransitDate(),-10} Deposit: {transit.GetDeposit(),-8} Withdrawl: {transit.GetWithdrawl(),-8} Balance: {transit.GetBalance(),-8}");
+            WriteLine($"Account ID: {transit.GetAccountId(), -10} Tranist time: {transit.GetTransitDate(),-12} Deposit: {transit.GetDeposit(),-8} Withdrawl: {transit.GetWithdrawl(),-8} Balance: {transit.GetBalance(),-8}");
         } 
 
     }

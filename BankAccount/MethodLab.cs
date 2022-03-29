@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankAccount
 {
-    class ClientsDB
+    class MethodLab
     {
         //Oprate clients data
         private Client client = new Client();
