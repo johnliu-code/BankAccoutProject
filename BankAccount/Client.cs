@@ -17,13 +17,13 @@ namespace BankAccount
         private string phone;
         private string address;
         private string birthDate;
-        private double clientId;
+        private double clientId = 0;
 
        // private Account account;
 
         List<Client> listClients = new List<Client>();
 
-        public Client(string _firstname, string _lastname, string _email, string _phone, string _address, string _birthdate)
+        public Client(string _firstname, string _lastname, string _email, string _phone, string _address, string _birthdate, double _clientId)
         {
             firstName = _firstname;
             lastName = _lastname;
@@ -31,6 +31,7 @@ namespace BankAccount
             phone = _phone;
             address = _address;
             birthDate = _birthdate;
+            clientId = _clientId;
         }
 
         public Client(string _firstname, string _lastname)
@@ -69,7 +70,7 @@ namespace BankAccount
         //Method create Client
         public void CreateClient (Client client)
         {
-            client = new Client();
+           // client = new Client();
 
             WriteLine("Your First Name? ");
             string firstname = ReadLine();

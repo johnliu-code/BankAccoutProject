@@ -49,20 +49,6 @@ namespace BankAccount
             account.CreateAccount(client);
             ReadLine();
 
-            transit.depositMoney(account, transit);
-            ReadLine();
-            transit.depositMoney(account, transit);
-            ReadLine();
-            transit.depositMoney(account, transit);
-            ReadLine();
-
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
-
             //Client 3
 
             client.CreateClient(client);
@@ -70,19 +56,6 @@ namespace BankAccount
             account.CreateAccount(client);
             ReadLine();
 
-            transit.depositMoney(account, transit);
-            ReadLine();
-            transit.depositMoney(account, transit);
-            ReadLine();
-            transit.depositMoney(account, transit);
-            ReadLine();
-
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
-            transit.withdrawlMoney(account, transit);
-            ReadLine();
 
             //History and statements
             transit.accountStatements(account, transit);
@@ -95,15 +68,7 @@ namespace BankAccount
             transit.accountHistory(account, transit);
             ReadLine();
 
-            //Delete account
-            client.deleteClient(client);
-            ReadLine();
-            account.deleteAccountList(account);
-            ReadLine();
-            transit.deleteRecords(account, transit);
-            ReadLine();
-
-            //Test results after delete
+            //Test results
             for (int i = 0; i < listClients.Count; i++)
             {
                 WriteLine($"first name: {listClients[i].GetFirstName()}");
@@ -119,6 +84,16 @@ namespace BankAccount
             {
                 WriteLine($"first name: {listTransits[k].GetBalance()}");
             }
+
+            //Delete account
+            client.deleteClient(client);
+            ReadLine();
+            account.deleteAccountList(account);
+            ReadLine();
+            transit.deleteRecords(account, transit);
+            ReadLine();
+
+
 
 
             // CreateClient(client);
