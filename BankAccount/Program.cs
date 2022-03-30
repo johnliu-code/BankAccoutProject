@@ -15,6 +15,8 @@ namespace BankAccount
         {
             //Bank account project for practice class in C#
 
+            MethodLab myMethod = new MethodLab();
+
             DataManage dataManage = new DataManage();
 
             dataManage.mainMenu();

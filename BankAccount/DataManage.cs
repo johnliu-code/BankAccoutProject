@@ -27,17 +27,17 @@ namespace BankAccount
 
             while (backTomain == "Y")
             {
-                string message = "Please choose your Menu option: 1. Open Account; 2. Login Account; 3. Quit";
+                string message = "Please choose your Menu option: 1. Open Account; 2. Login Account.";
                 int inputValue = 0;
                 int mainMenuOption = myMethod.validInt(inputValue, message);
                 switch (mainMenuOption)
                 {
                     case 1:
-                        account = account.CreateAccount(listAccounts, client);              //Creat Account set up client information
+                        account = account.CreateAccount(account, client);              //Creat Account set up client information
                         break;
 
                     case 2:
-                        account = account.userLogin(client, account);                       //Login and start to deposit money
+                        account = account.userLogin(account);                       //Login and start to deposit money
 
                         if (account.GetUserLogined() == true && account.GetAccoutActivated() == true)
                         {
@@ -49,20 +49,14 @@ namespace BankAccount
                         }
                         break;
 
-                    case 3:
-                        break;
-
                     default:
-                        WriteLine("Please entre a int number between 1 to 3 !");
+                        WriteLine("Please entre a int number between 1 to 2 !");
                         break;
                 }
 
-                if (mainMenuOption != 3)
-                {
-                    WriteLine("Back to Main Menu? Y/N");
-                    backTomain = ReadLine().ToUpper();
-                }
-            }           
+                WriteLine("Back to Main Menu? Y/N");
+                backTomain = ReadLine().ToUpper();
+            }
         }
 
         // Sub Menu when Cient login
@@ -137,7 +131,7 @@ namespace BankAccount
             else
             {
                 WriteLine("Please Login your account first!!");
-                account = account.userLogin(client, account);
+                account.userLogin(account);
             }
         }
 

@@ -16,11 +16,11 @@ namespace BankAccount
         private string password;
 
         private DateTime openDate;
-        private bool accoutActivated = true;
+        private bool accoutActivated = false;
         private bool userLogined = false;
 
-        List<Client> listClients = new List<Client>();
-        List<Account> listAccounts = new List<Account>();
+       // List<Client> listClients = new List<Client>();
+      //  List<Account> listAccounts = new List<Account>();
 
         MethodLab myMethod = new MethodLab();
 
@@ -66,7 +66,7 @@ namespace BankAccount
 
 
         //Method create Acccount (Set Client Acoount number and password)
-        public Account CreateAccount(List<Account> listAccounts, Client client)
+        public Account CreateAccount(Account account, Client client)
         {
             //Add client info to the List
             client = client.CreateClient(client);
@@ -75,25 +75,21 @@ namespace BankAccount
             accountNumber = randomNumber.Next(10000000, 99999999);          //Generate radom Bank Account Number
 
             client.SetClientId(accountNumber);
-            listClients.Add(client);
-            WriteLine($"Total Client: {listClients.Count}");
 
             WriteLine($"Your Bank Account Number is : {accountNumber}; \nPlease take a note to keep your Bank Account Number safelly, and entre your PassWord:");
             password = ReadLine();
             openDate = DateTime.Now;
 
-            Account account = new Account();                                //Create Account and set initial values
+            account = new Account();                                //Create Account and set initial values
             account.setClient(client);
             account.setAccountNumber(accountNumber);
             account.setPassWord(password);
             account.setOpenDate(openDate);
             account.setAccoutActivated(true);
-            listAccounts.Add(account);
 
             WriteLine($"Client Name: {client.GetFirstName()}, {client.GetLastName()}; Account Number: {account.GetAccountNumber()}; Open Date: {account.GetOpenDate().ToString()}");
-
             WriteLine("Your Banck Account successfully created! Enjoy our Bank Services!!!");
-            WriteLine($"Total account: {listAccounts.Count}");
+           
             return account;
         }
 
@@ -103,7 +99,7 @@ namespace BankAccount
         {
             if (!userLogined)
             {
-                account = userLogin(client, account);
+                userLogin(account);
             }
             else
             {
@@ -116,67 +112,43 @@ namespace BankAccount
         }
 
         //Client user login
-        public Account userLogin (Client client, Account account)
+        public Account userLogin(Account account)
         {
-            if (account.GetAccountNumber() == 0)
+            if (!account.GetAccoutActivated())
             {
                 WriteLine($"Your don't have an Account yet, please open one !!");
             } else
             {
+                double recentClientAccountNum = account.GetAccountNumber();
+                string recentAccountPassword = account.GetPassWord();
+
+                WriteLine($"Account number: {recentClientAccountNum}; Password: {recentAccountPassword}");
+
                 string messaage = "Please insert your Bank Card or Entre your Bank Account Number for Login: ";
                 double inputValue = 0;
                 accountNumber = myMethod.validDouble(inputValue, messaage);
 
-                WriteLine(account.accountNumber);
-                WriteLine(accountNumber);
-                for (int i = 0; i < listAccounts.Count; i++)
-                {
-                    WriteLine(listAccounts[i].GetAccountNumber());
-                    WriteLine(account.GetAccountNumber());
-                }
+                WriteLine("Please entre your Password: ");
+                password = ReadLine();
 
-                if (account.GetAccountNumber() == accountNumber)
-                {
-                    WriteLine("Please entre your Password: ");
-                    password = ReadLine();
+                //Get to match client
 
-                    if (password == account.GetPassWord())
+                if (recentClientAccountNum == accountNumber && recentAccountPassword == password)
+                {
+                    if (account.GetAccoutActivated() == true)
                     {
-                        //Get to match client
-                        for (int i = 0; i < listClients.Count; i++)
-                        {
-                            if (listClients[i].GetClientId() == accountNumber)
-                                client = listClients[i];
-                        }
-
-                        for (int j = 0; j < listAccounts.Count; j++)
-                        {
-                            if (listAccounts[j].GetAccountNumber() == accountNumber)
-                                account = listAccounts[j];
-                        }
-
-                        if (accoutActivated)
-                        {
-                            userLogined = true;
-                            account.setUserLogined(userLogined);
-                            WriteLine($"Client: {client.GetFirstName()} {client.GetLastName()}, has already Logined into Account: {account.GetAccountNumber()}");
-                        }
-                        else
-                        {
-                            WriteLine("You don't have account or the account has been closed, please open your account!!");
-                        }
-
+                        userLogined = true;
+                        account.setUserLogined(userLogined);
+                        WriteLine($"Client: {client.GetFirstName()} {client.GetLastName()}, has already Logined into Account: {account.GetAccountNumber()}");
                     }
                     else
                     {
-                        WriteLine("Invalid Password for this Account, Please try again!!");
-                        return userLogin(client, account);
+                        WriteLine("You don't have account or the account has been closed, please open your account!!");
                     }
                 }
                 else
                 {
-                    WriteLine("Invalid Account Number, Please try again!!");
-                    return userLogin(client, account);
+                    WriteLine("Invalid Account Number or Password, Please try again!!");
                 }
             }
 
