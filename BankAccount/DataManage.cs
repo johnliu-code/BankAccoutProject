@@ -23,9 +23,9 @@ namespace BankAccount
         //Main menu
         public void mainMenu()
         {
-            string backTomain = "Y";
+            char backTomain = 'Y';
 
-            while (backTomain == "Y")
+            while (backTomain == 'Y')
             {
                 string message = "Please choose your Menu option: 1. Open Account; 2. Login Account.";
                 int inputValue = 0;
@@ -54,17 +54,17 @@ namespace BankAccount
                         break;
                 }
 
-                WriteLine("Back to Main Menu? Y/N");
-                backTomain = ReadLine().ToUpper();
+                string myMessage = "Back to Main Menu? Y/N";
+                backTomain = myMethod.validYorN(backTomain, myMessage);
             }
         }
 
         // Sub Menu when Cient login
         public void subMenu()
         {
-            string backToAccountMenu = "Y";
+            char backToAccountMenu = 'Y';
 
-            while (backToAccountMenu == "Y")
+            while (backToAccountMenu == 'Y')
             {
                 string message = "Please choose your Menu option: 1. Deposit; 2. Withdrawl; 3. History; 4. Statements; 5. Close Account; 6. LogOut and Quit";
                 int inputValue = 0;
@@ -102,8 +102,8 @@ namespace BankAccount
 
                 if (subMenuOption != 6)
                 {
-                    WriteLine("Back to Account Menu? Y/N");
-                    backToAccountMenu = ReadLine().ToUpper();
+                    string messageInfo = "Back to Account Menu? Y/N";
+                    backToAccountMenu = myMethod.validYorN(backToAccountMenu, messageInfo);
                 }
             }
         }
@@ -155,6 +155,18 @@ namespace BankAccount
                 if (listTransits[j].GetAccountId() == listAccounts[j].GetAccountNumber())
                     transit = listTransits[j];
                 listTransits.Remove(transit);
+            }
+        }
+
+        //Delete records
+        public void deleteRecords(Account account, AccountTransit transit)
+        {
+            WriteLine($"Make sure you want to delete your Account: {account.GetAccountNumber()}? Y/N");
+            string answer = ReadLine().ToUpper();
+            if (account.GetAccountNumber() == transit.GetAccountId() && answer == "Y")
+            {
+                listTransits.Clear();
+                WriteLine(listTransits.Count);
             }
         }
 

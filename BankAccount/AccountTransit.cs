@@ -119,31 +119,26 @@ namespace BankAccount
 
             string message = "Please entre history start date yyyy-mm-dd: ";
             DateTime startDate = myMethod.validDateTimeInput(inputDateTime, message, formatDateTime);
-   
+
             string message2 = "Please entre history end date yyyy-mm-dd: ";
             DateTime endDate = myMethod.validDateTimeInput(inputDateTime, message2, formatDateTime);
+
+            if (endDate <= startDate)
+            {
+                string message3 = "The date must after start date, Please entre history end date yyyy-mm-dd: again!!";
+                endDate = myMethod.validDateTimeInput(inputDateTime, message3, formatDateTime);
+            }
 
             for (int i = 0; i < listTransits.Count; i++)
             {
                 if (listTransits[i].GetTransitDate() >= startDate && listTransits[i].GetTransitDate() <= endDate)
                 {
                     WriteLine($"Transit time: {listTransits[i].GetTransitDate()};    Deposit: {listTransits[i].GetDeposit()};   Withdrawl: {listTransits[i].GetWithdrawl()};   Balance: {listTransits[i].GetBalance()}");
-                } else
+                }
+                else
                 {
                     WriteLine($"Did not find results in this time priod: {startDate} to {endDate}");
-                }              
-            }
-        }
-
-        //Delete records
-        public void deleteRecords (Account account, AccountTransit transit)
-        {
-            WriteLine($"Make sure you want to delete your Account: {account.GetAccountNumber()}? Y/N");
-            string answer = ReadLine().ToUpper();
-            if (account.GetAccountNumber() == transit.GetAccountId() && answer == "Y")
-            {
-                listTransits.Clear();
-                WriteLine(listTransits.Count);
+                }
             }
         }
 

@@ -122,8 +122,6 @@ namespace BankAccount
                 double recentClientAccountNum = account.GetAccountNumber();
                 string recentAccountPassword = account.GetPassWord();
 
-                WriteLine($"Account number: {recentClientAccountNum}; Password: {recentAccountPassword}");
-
                 string messaage = "Please insert your Bank Card or Entre your Bank Account Number for Login: ";
                 double inputValue = 0;
                 accountNumber = myMethod.validDouble(inputValue, messaage);
@@ -158,10 +156,11 @@ namespace BankAccount
         //Close Account
         public void closeAccount (Account account)
         {
-            WriteLine($"Are you sure want to Close your Account : {account.GetAccountNumber()}? Y/N");
-            string answer = ReadLine().ToUpper();
+            char answer = 'N';
+            string message = $"Are you sure want to Close your Account : {account.GetAccountNumber()}? Y/N";
+            answer = myMethod.validYorN(answer, message);
 
-            if (answer == "Y")
+            if (answer == 'Y')
             {
                 account.setAccoutActivated(false);
             }
