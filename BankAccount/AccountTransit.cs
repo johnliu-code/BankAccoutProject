@@ -14,13 +14,14 @@ namespace BankAccount
         //All of account transitions data
         private Account account;
 
-        private double accountId;
+        private double accountId = 0;
         private double balance = 0;
         private double withdrawl = 0;
         private double deposit = 0;
         private DateTime transDate;
 
         private bool transStatusActived = false;
+
         MethodLab myMethod = new MethodLab();
 
         List<AccountTransit> listTransits = new List<AccountTransit>();
@@ -69,10 +70,8 @@ namespace BankAccount
 
             dispalyTransit(transit);
 
-         //   List<AccountTransit> listTransits = new List<AccountTransit>();
             listTransits.Add(transit);
             WriteLine(listTransits.Count);
-
         }
 
         //Method withdrawl money from Acccount
@@ -139,7 +138,9 @@ namespace BankAccount
         //Delete records
         public void deleteRecords (Account account, AccountTransit transit)
         {
-            if (account.GetAccountNumber() == transit.GetAccountId())
+            WriteLine($"Make sure you want to delete your Account: {account.GetAccountNumber()}? Y/N");
+            string answer = ReadLine().ToUpper();
+            if (account.GetAccountNumber() == transit.GetAccountId() && answer == "Y")
             {
                 listTransits.Clear();
                 WriteLine(listTransits.Count);

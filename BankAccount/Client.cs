@@ -68,9 +68,9 @@ namespace BankAccount
         public void SetClientId(double _clientId) { clientId = _clientId; }
 
         //Method create Client
-        public void CreateClient (Client client)
+        public Client CreateClient (Client client)
         {
-           // client = new Client();
+            client = new Client();
 
             WriteLine("Your First Name? ");
             string firstname = ReadLine();
@@ -96,20 +96,24 @@ namespace BankAccount
             string birthdate = ReadLine();
             client.SetBirthDate(birthdate);
 
-            //Add client info to the List
-            listClients.Add(client);
-            WriteLine(listClients.Count);
+            client.SetClientId(clientId);
+
+            return client;
         }
 
         //Method display Client
         public void DisplayClient (Client client)
         {
-            WriteLine($"Client First Name: {client.GetFirstName()}");
-            WriteLine($"Client Last Name: {client.GetLastName()}");
-            WriteLine($"Client Email: {client.GetEmail()}");
-            WriteLine($"Client Phone Number: {client.GetPhone()}");
-            WriteLine($"Client Address: {client.GetAddress()}");
-            WriteLine($"Client Birth Date: {client.GetBirthDate()}");
+           for (int i = 0; i < listClients.Count; i++)
+            {
+                WriteLine($"Client ID: {listClients[i].GetClientId()}");
+                WriteLine($"Client First Name: {listClients[i].GetFirstName()}");
+                WriteLine($"Client Last Name: {listClients[i].GetLastName()}");
+                WriteLine($"Client Email: {listClients[i].GetEmail()}");
+                WriteLine($"Client Phone Number: {listClients[i].GetPhone()}");
+                WriteLine($"Client Address: {listClients[i].GetAddress()}");
+                WriteLine($"Client Birth Date: {listClients[i].GetBirthDate()}");
+            }
         }
 
         //Method update Client
@@ -140,26 +144,6 @@ namespace BankAccount
             client.SetBirthDate(birthdate);
         }
 
-        //Delete Client
-        public void deleteClient (Client client)
-        {
-
-            WriteLine("Please entre Client Email you want to delete:  ");
-            string emailDel = ReadLine();
-
-            WriteLine(listClients.Count);
-            for (int i = 0; i < listClients.Count; i++)
-            {
-                    WriteLine(emailDel);
-                    WriteLine(listClients[i].GetEmail());
-                if (listClients[i].GetEmail() == emailDel)
-                {
-                    client = listClients[i];
-                    listClients.Remove(client);
-                }
-            }
-            WriteLine(listClients.Count);
-        }
     }
 
 }
