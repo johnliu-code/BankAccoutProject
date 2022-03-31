@@ -143,7 +143,6 @@ namespace BankAccount
             string birthdate = ReadLine();
             client.SetBirthDate(birthdate);
         }
-
     }
 
 }

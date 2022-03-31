@@ -156,11 +156,11 @@ namespace BankAccount
         //Close Account
         public void closeAccount (Account account)
         {
-            char answer = 'N';
+            string answer = "Y";
             string message = $"Are you sure want to Close your Account : {account.GetAccountNumber()}? Y/N";
             answer = myMethod.validYorN(answer, message);
 
-            if (answer == 'Y')
+            if (answer == "Y")
             {
                 account.setAccoutActivated(false);
             }

@@ -63,21 +63,5 @@ namespace BankAccount
             }
             return inputDateTime;
         }
-
-        //Validate input Y or N
-        public char validYorN(char answer, string message)
-        {
-            try
-            {
-                WriteLine(message);
-                answer = ToChar(ReadLine().ToUpper());
-            }
-            catch (Exception)
-            {
-                WriteLine($"Please entre a letter Y or N !");
-                return validYorN(answer, message);
-            }
-            return answer;
-        }
     }
 }

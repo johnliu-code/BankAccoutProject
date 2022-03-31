@@ -17,9 +17,9 @@ namespace BankAccount
 
             MethodLab myMethod = new MethodLab();
 
-            DataManage dataManage = new DataManage();
+            Menu menu = new Menu();
 
-            dataManage.mainMenu();
+            menu.mainMenu();
 
         }
     }
